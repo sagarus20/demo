@@ -6,32 +6,30 @@
     </head>
     <body>
         <h1>Inicio</h1>
-        <p th:text="${mensaje}"></p>
-        <p th:text="${saludo}"></p>
+
         <br>
-        <div th:if="${personas!=null and !personas.empty}">
+          <!-- Si hay personas, muestra la tabla -->
+    <div th:if="${personas != null and !personas.empty}">
         <table border="1">
             <tr>
-            <th>Nombre:</th>
-            <th>Apellido:</th>
-            <th>Email:</th>
-            <th>Telefono:</th>
+                <th>Nombre:</th>
+                <th>Apellido:</th>
+                <th>Email:</th>
+                <th>Telefono:</th>
             </tr>
-            
-            <tr th:each=" persona:${personas} ">
-                <td th:text="${persona.Nombre}"> Mostrar Nombre</td>
-    
-                <td th:text="${persona.Apellido}">Mostrar Apellido</td>
-        
-                <td th:text="${persona.Email}">Mostrar Email</td>
-        
-                <td th:text="${persona.Telefono}">Mostrar Telefono</td>
+
+            <tr th:each="persona : ${personas}">
+                <td th:text="${persona.nombre}">Mostrar Nombre</td>
+                <td th:text="${persona.apellido}">Mostrar Apellido</td>
+                <td th:text="${persona.email}">Mostrar Email</td>
+                <td th:text="${persona.telefono}">Mostrar Telefono</td>
             </tr>
-        </div>
-        <div th:if="${personas==null or personas.empty}">
-                la lista de personas esta vacia
-        </div>
         </table>
-      
+    </div>
+
+    <!-- Si la lista está vacía -->
+    <div th:if="${personas == null or personas.empty}">
+        La lista de personas está vacía.
+    </div>
     </body>
 </html>
