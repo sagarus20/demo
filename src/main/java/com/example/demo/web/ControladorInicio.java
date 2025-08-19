@@ -21,7 +21,7 @@ public class ControladorInicio {
 
     @GetMapping("/")
     public String inicio(Model model){
-        System.err.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>> MÉTODO INICIO()");
+        
         var personas = personaDao.findAll();
         log.info("Persona insertada desde inicio()");
         model.addAttribute("personas", personas);
