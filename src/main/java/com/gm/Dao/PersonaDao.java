@@ -1,8 +1,8 @@
-package com.example.demo.Dao;
+package com.gm.Dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.example.demo.domain.Persona;
+import com.gm.domain.Persona;
 
 public interface PersonaDao extends CrudRepository<Persona, Long> {
 }
