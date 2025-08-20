@@ -6,10 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.gm.domain.Persona;
 import com.gm.service.PersonaService;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -23,11 +27,27 @@ public class ControladorInicio {
     public String inicio(Model model){
         
         var personas = personaService.listaPersonas();
-        log.info("Persona insertada desde inicio()");
+        log.info("ejecutando lista de controlador spring MVC");
         model.addAttribute("personas", personas);
         
         return "index";
     }
+    @GetMapping("/agregar")
+    public String agregar(Persona persona){
+        
+        var personas = personaService.listaPersonas();
+        log.info("Persona insertada desde guardar()");
+
+        
+        return "modificar";
+    }
+    @PostMapping("/guardar")
+    public String guardar(Persona persona) {
+        personaService.guardar(persona);
+        
+        return "redirect:/";
+    }
+    
     @PostConstruct
     public void init() {
 
