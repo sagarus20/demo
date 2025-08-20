@@ -35,11 +35,27 @@ public class ControladorInicio {
     @GetMapping("/agregar")
     public String agregar(Persona persona){
         
-        var personas = personaService.listaPersonas();
         log.info("Persona insertada desde guardar()");
 
         
         return "modificar";
+    }
+    @GetMapping("/editar{id_persona}")
+    public String editar(Persona persona,Model model){
+       persona=personaService.encontrarPersona(persona);
+       model.addAttribute("persona", persona);
+        log.info("Persona insertada desde editar()");
+
+        
+        return "modificar";
+    }
+    @GetMapping("/eliminar")
+    public String eliminar(Persona persona,Model model){
+       personaService.eliminar(persona);     
+        log.info("Persona eliminada desde editar()");
+
+        
+        return "redirect:/";
     }
     @PostMapping("/guardar")
     public String guardar(Persona persona) {
