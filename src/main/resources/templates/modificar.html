@@ -3,31 +3,34 @@
                 xmlns="https://www.w3.org./1999/xhyml"  >
     <head>
         <meta charset="UTF-8" />
-        <title>Datos de la persona</title>
+        <title>[[#{persona.formulario}]]</title>
     </head>
-    <body>  
-        <h1>Datos de la persona</h1>
-        <a th:href="@{/}">Regresar</a>
+    <body> 
+        <header th:replace="layout/plantilla :: header"></header>
+         
+        <a th:href="@{/}">[[#{accion.regresar}]]</a>
         </br>
         <form th:action="@{/guardar}" method="post" th:object="${persona}">
             <input type="hidden" name="id_persona" th:field="*{id_persona}"/>
-            <label for="nombre">Nombre:</label>
+            <label for="nombre">[[#{persona.nombre}]]:</label>
             <input type="text" name="nombre" th:field="*{nombre}"/>
             <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
             <br/>
-            <label for="apellido">Apellido:</label>
+            <label for="apellido">[[#{persona.apellido}]]:</label>
             <input type="text" name="apellido" th:field="*{apellido}"/>
             <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
             <br/>
-            <label for="email">Email:</label>
+            <label for="email">[[#{persona.email}]]:</label>
             <input type="text" name="email" th:field="*{email}"/>
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error email</span>
             <br/>
-            <label for="telefono">Telefono:</label>
+            <label for="telefono">[[#{persona.telefono}]]:</label>
             <input type="text" name="telefono" th:field="*{telefono}"/>
             <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error telefono</span>
             <br/>
-            <input type="submit" name="guardar" value="guardar">
+            <input type="submit" name="guardar" th:value="#{accion.guardar}">
         </form>
     </body>
+    <footer th:replace="layout/plantilla :: footer"></footer>
+    
 </html>

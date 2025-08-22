@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org"
+                xmlns="https://www.w3.org./1999/xhyml"  >
+    <head>
+        <meta charset="UTF-8" />
+        <title>Plantilla</title>
+    </head>
+    <body>  
+        <header th:fragment="header">
+            <h1 th:text="#{plantilla.titulo}">titulo</h1>
+        </header>
+        <footer th:fragment="footer">
+            <div>
+                <a th:href="@{/(lang='es')}">ES</a> |
+                <a th:href="@{/(lang='en')}">EN</a>
+                <span>[[#{plantilla.pie-pagina}]] <a href="" target="_blank">link.com</a></span>
+            </div>
+            
+        </footer>
+    </body>
+</html>
