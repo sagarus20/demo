@@ -6,7 +6,7 @@
     </head>
     <body>
         <header th:replace="layout/plantilla :: header"></header>
-        <a th:href="@{/agregar}">[[#{persona.crear}]]</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{persona.crear}]]</a>
         <br>
 
           <!-- Si hay personas, muestra la tabla -->
@@ -17,8 +17,8 @@
                 <th>[[#{persona.apellido}]]</th>
                 <th>[[#{persona.email}]]</th>
                 <th>[[#{persona.telefono}]]</th>
-                <th>[[#{accion.editar}]]</th>
-                <th>[[#{accion.eliminar}]]</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
             </tr>
 
             <tr th:each="persona : ${personas}">
@@ -26,8 +26,8 @@
                 <td th:text="${persona.apellido}">Mostrar Apellido</td>
                 <td th:text="${persona.email}">Mostrar Email</td>
                 <td th:text="${persona.telefono}">Mostrar Telefono</td>
-                <td><a th:href="@{/editar} + ${persona.id_persona}" th:text="editar"/></td>
-                <td><a th:href="@{/eliminar(id_persona=${persona.id_persona})} " th:text="eliminar"/></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar} + ${persona.id_persona}" th:text="editar"/></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar(id_persona=${persona.id_persona})} " th:text="eliminar"/></td>
             </tr>
         </table>
     </div>
