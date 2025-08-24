@@ -2,59 +2,62 @@ package com.gm.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.gm.service.UsuarioService;
 
 @Configuration
-@EnableWebSecurity
-public class SecurityConfig  {
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.withUsername("admin")
-                .password("{noop}123")
-                .roles("ADMIN", "USER")
-                .build();
+public class SecurityConfig {
 
-        UserDetails user = User.withUsername("user")
-                .password("{noop}123")
-                .roles("USER")
-                .build();
+    private final UsuarioService usuarioService;
 
-        return new InMemoryUserDetailsManager(admin, user);
+    public SecurityConfig(UsuarioService usuarioService) {
+        this.usuarioService = usuarioService;
     }
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring();
 
+    // BCryptPasswordEncoder bean
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
+    // AuthenticationProvider que usa tu UsuarioService
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(usuarioService); // 👈 usa tu servicio directamente
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    // AuthenticationManager
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
+
+    // Seguridad de rutas
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/editar/**", "/agregar/**", "/eliminar/**")
-                .hasRole("ADMIN")
-            .requestMatchers("/")
-                .hasAnyRole("ADMIN", "USER")
-            .anyRequest().authenticated()
-        )
-        .formLogin(form -> form
-            .loginPage("/login")
-            .permitAll()
-        )
-        .logout(logout -> logout
-            .permitAll()
-        )
-        .exceptionHandling(ex -> ex
-            .accessDeniedPage("/errores/403"))
-        ;
+        http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/editar/**", "/agregar/**", "/eliminar/**").hasRole("ADMIN")
+                .requestMatchers("/").hasAnyRole("ADMIN", "USER")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()
+            )
+            .logout(logout -> logout.permitAll())
+            .exceptionHandling(ex -> ex.accessDeniedPage("/errores/403"));
 
-    return http.build();
-}
+        return http.build();
+    }
 }
