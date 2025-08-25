@@ -15,44 +15,44 @@ import com.gm.service.UsuarioService;
 @Configuration
 public class SecurityConfig {
 
-    private final UsuarioService usuarioService;
+     private final UsuarioService usuarioService;
 
     public SecurityConfig(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
     // BCryptPasswordEncoder bean
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     // AuthenticationProvider que usa tu UsuarioService
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(usuarioService); // 👈 usa tu servicio directamente
+        authProvider.setUserDetailsService(usuarioService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
 
     // AuthenticationManager
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
     // Seguridad de rutas
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/webjars/**", "/css/**", "/js/**", "/images/**").permitAll() 
                 .requestMatchers("/editar/**", "/agregar/**", "/eliminar/**").hasRole("ADMIN")
                 .requestMatchers("/").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
+                .defaultSuccessUrl("/", true)   // 👈 fuerza siempre ir a /
                 .permitAll()
             )
             .logout(logout -> logout.permitAll())

@@ -1,5 +1,6 @@
 package com.gm.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
@@ -16,6 +17,7 @@ import lombok.Data;
 @Table(name="persona")
 public class Persona implements Serializable{
 
+    @Serial
     private static final long serialVersionUID= 1L;
 
     @Id

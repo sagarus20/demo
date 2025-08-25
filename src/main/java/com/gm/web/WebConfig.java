@@ -16,21 +16,24 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 public class WebConfig implements WebMvcConfigurer {
 
     @Bean
-    public LocaleResolver localeResolver() {
+    LocaleResolver localeResolver() {
         var clr = new CookieLocaleResolver();
         clr.setDefaultLocale(Locale.forLanguageTag("en"));
         return clr;
     }
+
     @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor(){
+    LocaleChangeInterceptor localeChangeInterceptor(){
         var lci=new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
     }
+    @SuppressWarnings("null")
     @Override
     public void addInterceptors(InterceptorRegistry registro){
         registro.addInterceptor(localeChangeInterceptor());
     }
+    @SuppressWarnings("null")
     @Override
     public void addViewControllers(ViewControllerRegistry registro){
         registro.addViewController("/").setViewName("index");

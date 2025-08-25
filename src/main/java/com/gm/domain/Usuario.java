@@ -1,9 +1,10 @@
 package com.gm.domain;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +21,7 @@ import lombok.Data;
 @Data
 @Table(name="usuario")
 public class Usuario implements Serializable{
+    @Serial
     private static final long serialVersionUID=1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +30,7 @@ public class Usuario implements Serializable{
     private String username;
     @NotEmpty
     private String password;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name="id_usuario")
     private List<Rol>roles;
 

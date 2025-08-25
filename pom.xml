@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.13</version>
+        <version>3.5.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -21,6 +21,58 @@
     </properties>
 
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-filestyle</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-slider</artifactId>
+            <version>10.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-table</artifactId>
+            <version>1.16.0</version>
+        </dependency>
+<dependency>
+    <groupId>org.webjars.npm</groupId>
+    <artifactId>bootstrap-icons</artifactId>
+    <version>1.10.5</version>
+</dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>7.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>5.3.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.7.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>2.11.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>0.52</version>
+        </dependency>
+        <dependency>
+                <groupId>org.webjars</groupId>
+                <artifactId>webjars-locator-lite</artifactId>
+                <version>1.1.0</version>
+            </dependency>
         <!-- Spring Security -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
