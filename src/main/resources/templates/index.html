@@ -1,35 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-    <head th:replace="~{layout/plantilla :: head}">
-        <title>[[#{index.titulo}]]</title>
-    </head>
-    <body>
-        <header th:replace="~{layout/plantilla :: header}"></header>
-        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/agregar}">[[#{persona.crear}]]</a>
-        <br>
 
-          <!-- Si hay personas, muestra la tabla -->
+<head th:replace="~{layout/plantilla :: head}">
+    <title>[[#{index.titulo}]]</title>
+</head>
+
+<body>
+    <header th:replace="~{layout/plantilla :: header}"></header>
+    <a class="btn btn-primary btn-sm " role="button" sec:authorize="hasRole('ROLE_ADMIN')"
+        th:href="@{/agregar}">[[#{persona.crear}]]</a>
+    <br>
+
+    <!-- Si hay personas, muestra la tabla -->
     <div th:if="${personas != null and !personas.empty}">
         <table class="table" border="1">
             <thead>
-            <tr>
-                <th>[[#{persona.nombre}]]</th>
-                <th>[[#{persona.apellido}]]</th>
-                <th>[[#{persona.email}]]</th>
-                <th>[[#{persona.telefono}]]</th>
-                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
-                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
-            </tr>
+                <tr>
+                    <th>[[#{persona.nombre}]]</th>
+                    <th>[[#{persona.apellido}]]</th>
+                    <th>[[#{persona.email}]]</th>
+                    <th>[[#{persona.telefono}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                    <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="persona : ${personas}">
-                <td th:text="${persona.nombre}">Mostrar Nombre</td>
-                <td th:text="${persona.apellido}">Mostrar Apellido</td>
-                <td th:text="${persona.email}">Mostrar Email</td>
-                <td th:text="${persona.telefono}">Mostrar Telefono</td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/editar} + ${persona.id_persona}" th:text="editar"/></td>
-                <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/eliminar(id_persona=${persona.id_persona})} " th:text="eliminar"/></td>
-            </tr>
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}">Mostrar Nombre</td>
+                    <td th:text="${persona.apellido}">Mostrar Apellido</td>
+                    <td th:text="${persona.email}">Mostrar Email</td>
+                    <td th:text="${persona.telefono}">Mostrar Telefono</td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-primary btn-sm " role="button" th:href="@{/editar} + ${persona.id_persona}"
+                            th:text="editar" />
+                    </td>
+                    <td sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="btn btn-primary btn-sm " role="button"
+                            th:href="@{/eliminar(id_persona=${persona.id_persona})} " th:text="eliminar" />
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -39,5 +48,6 @@
         [[#{persona.lista-vacia}]]
     </div>
     <footer th:replace="~{layout/plantilla :: footer}"></footer>
-    </body>
+</body>
+
 </html>
