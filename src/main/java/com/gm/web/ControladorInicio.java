@@ -44,7 +44,7 @@ public class ControladorInicio {
         
         return "modificar";
     }
-    @GetMapping("/editar{id_persona}")
+    @GetMapping("/editar/{id_persona}")
     public String editar(Persona persona,Model model){
        persona=personaService.encontrarPersona(persona);
        model.addAttribute("persona", persona);

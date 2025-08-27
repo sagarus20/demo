@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+    xmlns="https://www.w3.org./1999/xhyml">
+
+<head th:replace="~{layout/plantilla :: head}">
+    <title>listado clientes</title>
+</head>
+
+<body>
+    <section th:fragment="listadoClientes" id="clientes">
+        <!-- Si hay personas, muestra la tabla -->
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>[[#{persona.titulo-list}]]</h4>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${personas != null and !personas.empty}">
+                                <table class="table table-striped" >
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>[[#{persona.nombre}]]</th>
+                                            <th>[[#{persona.email}]]</th>
+                                            <th>[[#{persona.telefono}]]</th>
+                                            <th>[[#{persona.saldo}]]</th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.editar}]]</th>
+                                            <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{accion.eliminar}]]</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="persona, contador : ${personas}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td> [[${persona.nombre}+' '+${persona.apellido}]]</td>
+                                            <td> [[${persona.email}]]</td>
+                                            <td> [[${persona.telefono}]]</td>
+                                            <td> [[${#numbers.formatDecimal(persona.saldo, 1, 'COMMA', 2, 'POINT')}]]</td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a class="btn btn-secondary btn-sm " role="button"
+                                                    th:href="@{/editar/} + ${persona.id_persona}">
+                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>[[#{accion.editar}]]
+                                                </a>
+                                            </td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a class="btn btn-danger btn-sm " role="button"
+                                                    th:href="@{/eliminar(id_persona=${persona.id_persona})} ">
+                                                <i class="fa fa-angle-double-right" aria-hidden="true"></i>[[#{accion.eliminar}]]
+                                            </a> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Si la lista está vacía -->
+                            <div class="text-center p-2" th:if="${personas == null or personas.empty}">
+                                <span>[[#{persona.lista-vacia}]] </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>

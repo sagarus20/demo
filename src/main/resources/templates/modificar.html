@@ -36,6 +36,12 @@
             <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error telefono</span>
         </div>
         <br />
+        <div class="mb-3">
+            <label for="saldo" class="form-label">[[#{persona.saldo}]]:</label>
+            <input type="number" class="form-control" name="saldo" th:field="*{saldo}" />
+            <span th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}">Error Saldo</span>
+        </div>
+        <br />
 
         <input class="btn btn-primary" type="submit" name="guardar" th:value="#{accion.guardar}">
 
