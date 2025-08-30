@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+    xmlns="https://www.w3.org./1999/xhyml">
+
+<head th:replace="~{layout/plantilla :: head}">
+    <title>listado clientes</title>
+</head>
+
+<body>
+    <section th:fragment="botonesEditar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <a th:href="@{/}" class="btn btn-light btn-block" >
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>[[#{accion.regresar}]]
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#editarCliente">
+                        <i class="fa fa-check" aria-hidden="true"></i>[[#{accion.editarClientes}]]
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <a th:href="@{/eliminar(idPersona=${persona.id_persona})}" class="btn btn-primary btn-block" >
+                       <i class="fa fa-trash" aria-hidden="true"></i>[[#{accion.eliminarClientes}]]
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

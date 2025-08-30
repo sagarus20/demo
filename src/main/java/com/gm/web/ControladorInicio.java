@@ -33,7 +33,12 @@ public class ControladorInicio {
         log.info("ejecutando lista de controlador spring MVC");
         log.info("usuario que hizo login:" +user);
         model.addAttribute("personas", personas);
-        
+        var saldoTotal=0D;
+        for(var p:personas){
+            saldoTotal+=p.getSaldo();
+        }
+        model.addAttribute("saldoTotal", saldoTotal);
+        model.addAttribute("totalClientes", personas.size());
         return "index";
     }
     @GetMapping("/agregar")

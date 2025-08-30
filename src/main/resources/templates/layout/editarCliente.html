@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+    xmlns="https://www.w3.org./1999/xhyml">
+
+<head th:replace="~{layout/plantilla :: head}">
+    <title>listado clientes</title>
+</head>
+
+<body>
+
+    <section th:fragment="editarCliente">
+        <form th:action="@{/guardar}" th:object="${persona}" method="post" class="was-validated">
+            <section th:replace="~{layout/botonesEditar :: botonesEditar}"></section>
+            <input type="hidden" name="id_persona" th:field="*{id_persona}"/>
+            <div id="details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-header bg-info text-white">
+                                    <h5 class="modal-title" th:text="#{accion.editar}">Editar Cliente</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <label for="nombre" class="form-label">[[#{persona.nombre}]]</label>
+                                    <input type="text" name="nombre" id="nombre" class="form-control"
+                                        th:field="*{nombre}" required="true" />
+                                    <div class="invalid-feedback">
+                                        nombre es requerido
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="apellido" class="form-label">[[#{persona.apellido}]]</label>
+                                        <input type="text" name="apellido" id="apellido" class="form-control"
+                                            th:field="*{apellido}" required="true" />
+                                        <div class="invalid-feedback">
+                                            apellido es requerido
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">[[#{persona.email}]]</label>
+                                        <input type="email" name="email" id="email" class="form-control"
+                                            th:field="*{email}" required="true" />
+                                        <div class="invalid-feedback">
+                                            email es requerido
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="telefono" class="form-label">[[#{persona.telefono}]]</label>
+                                        <input type="tel" name="telefono" id="telefono" class="form-control"
+                                            th:field="*{telefono}" required="true" />
+                                        <div class="invalid-feedback">
+                                            telefono es requerido
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="saldo" class="form-label">[[#{persona.saldo}]]</label>
+                                        <input type="number" name="saldo" id="saldo" class="form-control"
+                                            th:field="*{saldo}" required="true" />
+                                        <div class="invalid-feedback">
+                                            saldo es requerido
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="submit" class="btn btn-primary"
+                                            th:text="#{accion.guardar}">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+    </section>
+</body>
+
+</html>

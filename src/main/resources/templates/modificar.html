@@ -1,52 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="https://www.w3.org./1999/xhyml">
-
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security"
+    xmlns="https://www.w3.org./1999/xhyml">
 <head th:replace="~{layout/plantilla :: head}">
     <title>[[#{persona.formulario}]]</title>
 </head>
 
 <body>
     <header th:replace="~{layout/plantilla :: header}"></header>
-
-    <a class="btn btn-primary btn-sm " role="button" th:href="@{/}">[[#{accion.regresar}]]</a>
-    </br>
-    <form th:action="@{/guardar}" method="post" th:object="${persona}">
-        <div class="mb-3">
-            <input type="hidden" name="id_persona" th:field="*{id_persona}" />
-            <label for="nombre" class="form-label">[[#{persona.nombre}]]:</label>
-            <input type="text" class="form-control" name="nombre" th:field="*{nombre}" />
-            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error nombre</span>
-        </div>
-        <br />
-        <div class="mb-3">
-            <label for="apellido" class="form-label">[[#{persona.apellido}]]:</label>
-            <input type="text" class="form-control" name="apellido" th:field="*{apellido}" />
-            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
-        </div>
-        <br />
-        <div class="mb-3">
-            <label for="email" class="form-label">[[#{persona.email}]]:</label>
-            <input type="text" class="form-control" name="email" th:field="*{email}" />
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error email</span>
-        </div>
-        <br />
-        <div class="mb-3">
-            <label for="telefono" class="form-label">[[#{persona.telefono}]]:</label>
-            <input type="text" class="form-control" name="telefono" th:field="*{telefono}" />
-            <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Error telefono</span>
-        </div>
-        <br />
-        <div class="mb-3">
-            <label for="saldo" class="form-label">[[#{persona.saldo}]]:</label>
-            <input type="number" class="form-control" name="saldo" th:field="*{saldo}" />
-            <span th:if="${#fields.hasErrors('saldo')}" th:errors="*{saldo}">Error Saldo</span>
-        </div>
-        <br />
-
-        <input class="btn btn-primary" type="submit" name="guardar" th:value="#{accion.guardar}">
-
-    </form>
+    
+    <section th:replace="~{layout/editarCliente :: editarCliente}"></section>
+    <footer th:replace="~{layout/plantilla :: footer}"></footer>
 </body>
-<footer th:replace="~{layout/plantilla :: footer}"></footer>
+
 
 </html>
